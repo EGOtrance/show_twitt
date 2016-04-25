@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+{{#if error}}
+	<h2>{{error}}</h2>
+{{/if}}
+
+<form action='\show', method="POST">
+	<input type="text" name="text">
+	<input type="submit" value="поиск">
+</form>
+{{#each twitt}}
+	<h1></h1>
+	<h2>{{user.screen_name}}({{user.name}}):          {{text}} </h2>
+{{/each}}

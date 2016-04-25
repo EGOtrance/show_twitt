@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "body-parser": "1.x",
+    "consolidate": "0.x",
+    "cookie-parser": "^1.4.1",
+    "express": "4.x",
+    "handlebars": "2.x",
+    "oauth-signature": "^1.3.1",
+    "request": "2.x"
+  }
+}
