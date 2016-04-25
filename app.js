@@ -119,6 +119,12 @@ app.post('/pin',function(req,res){
 					});
 			response.on("end",function()
 					{   //проверить ошибки
+						if (!querystring.parse(data).oauth_token)
+						{
+							res.render('pin', {
+							error: 'неправильно введен PIN повторите'
+						     });
+						}
 						console.log('/pin'+data);
 						var usr=new user(req.cookies.usr.userName,req.cookies.usr.userPass,querystring.parse(data).oauth_token,querystring.parse(data).oauth_token_secret,new Date(Date.now() + 2 * 604800000));
 						usr.userId=querystring.parse(data).user_id;
