@@ -1,1 +1,0 @@
-OAuth oauth_consumer_key="Wx0ezY4Fp3FmuY7ZObfTXKFjA", oauth_nonce="mGAYJOnNPg2fXuIfMRP0Cbrc0KghQLzKBx3d", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1461570018", oauth_version="1.0", oauth_token="718090481545175040-OXwqsJhNRUrhwoMvKVuPy10jg50HUE7", oauth_signature="u0WLp1BGqafORrBZT6U%2FTHaf%2Fok%3D", 

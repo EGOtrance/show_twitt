@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(cook());
 app.engine('hbs', templating.handlebars);
 app.set('view engine', 'hbs');
-app.set('views', __dirname + ''); // + '/views'
+app.set('views', __dirname + '/views'); 
 
 var oauth={consumer_key:'Wx0ezY4Fp3FmuY7ZObfTXKFjA',
 			consumer_secret:'xmf0gOATp6IyyEhKGZ0ac1GopUymLlBIoc3Mn7FAnHRkfYOyLV',
@@ -64,10 +64,9 @@ app.post('/show',function(req,res){
       , url = 'https://api.twitter.com/1.1/search/tweets.json'
       , qs =
         { q: perm_data,
-			count:1000}
+			count:50}
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
-			fs.writeFileSync('twitt.json',data);
-			 res.render('search',{title:'Запрошенные твиты', twitt:data.statuses});
+			res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses});
     })
 
 			
