@@ -57,6 +57,13 @@ app.get('/enter_pin',function(req,res){
 		title: 'Введите полученный PIN'
 	});
 })
+app.get('/shutdown', function(req,res){
+	res.clearCookie('usr',{path:'/'});
+	res.render('search', {
+		title: 'Авторизируйтесь',
+		goust:'GOUST'
+	})
+})
 app.post('/show',function(req,res){
 			console.log('show:',req.cookies.usr);
 			if (!req.cookies.usr)
@@ -75,7 +82,7 @@ app.post('/show',function(req,res){
       , url = 'https://api.twitter.com/1.1/search/tweets.json'
       , qs =
         { q: perm_data,
-			count:50}
+			count:100}
 			console.log('отправляю запрос '+req.body.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
 			if (data.errors)
@@ -85,7 +92,8 @@ app.post('/show',function(req,res){
 			}
 			else{
 				console.log('получил ответ на запрос '+req.body.text+' отправляю на сервер в ответ');
-				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses});
+				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses,
+									  user: req.cookies.usr.screenName});
 			}
     })
 

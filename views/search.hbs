@@ -5,21 +5,27 @@
 	</form>
 {{/if}}
 {{#if user}}
-	<h2>Вы вошли как {{user}}</h2>
+	<h2>Вы вошли как {{user}} 
+		<form action='\shutdown', method="GET">
+		<input type="submit" value="ВЫЙТИ">
+	</form>
+	</h2>
+	<h2></h2>
+	<h1>{{title}}</h1>
+	<form action='\show', method="POST">
+		<input type="text" name="text">
+		<input type="submit" value="поиск">
+	</form>
+	
+{{#each twitt}}
+	<h1></h1>
+	<p><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> {{text}}</p>
+	           
+{{/each}}
 {{/if}}
 
 
-<h1>{{title}}</h1>
 {{#if error}}
 	<h2>{{error}}</h2>
 {{/if}}
 
-
-<form action='\show', method="POST">
-	<input type="text" name="text">
-	<input type="submit" value="поиск">
-</form>
-{{#each twitt}}
-	<h1></h1>
-	<h2>{{user.screen_name}}({{user.name}}):          {{text}} </h2>
-{{/each}}
