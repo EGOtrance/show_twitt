@@ -1,7 +1,19 @@
+{{#if goust}}
+	<h2>Вы вошли как гость, авторизуйтесь</h2>
+	<form action='\show', method="POST">
+		<input type="submit" value="авторизоваться">
+	</form>
+{{/if}}
+{{#if user}}
+	<h2>Вы вошли как {{user}}</h2>
+{{/if}}
+
+
 <h1>{{title}}</h1>
 {{#if error}}
 	<h2>{{error}}</h2>
 {{/if}}
+
 
 <form action='\show', method="POST">
 	<input type="text" name="text">

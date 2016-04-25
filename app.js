@@ -37,9 +37,20 @@ function user(userName,userPass,twittToken,twittTokenSecret,serverToken)
 var request = require('request');
 var urlutils = require('url');
 app.get('/', function(req, res){
-	res.render('search', {
-		title: 'Введите твитт для поиска'
-	});
+	if (!req.cookies.usr)
+	{
+		res.render('search', {
+		title: 'Авторизируйтесь',
+		goust:'GOUST'
+	})
+	}
+	else
+	{
+		res.render('search', {
+		title: 'Введите твитт для поиска',
+		user: req.cookies.usr.screenName
+		});
+	}
 });
 app.get('/enter_pin',function(req,res){
 	res.render('pin', {
@@ -67,7 +78,6 @@ app.post('/show',function(req,res){
 			count:50}
 			console.log('отправляю запрос '+req.body.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
-			console.log(data);
 			if (data.errors)
 			{
 				res.clearCookie('usr',{path:'/'});
@@ -133,9 +143,10 @@ app.post('/pin',function(req,res){
 						res.cookie('usr',usr,{path: '/'});
 						
 						res.render('search', {
-							title: 'Введите твитт для поиска'
+							title: 'Введите твитт для поиска',
+							user: querystring.parse(data).screen_name
 	});
-						//users[req.body.user]=new user(req.body.pass,querystring.parse(token).oauth_token,querystring.parse(token).oauth_token_secret)
+						
 						
 					})
 			});
