@@ -65,8 +65,18 @@ app.post('/show',function(req,res){
       , qs =
         { q: perm_data,
 			count:50}
+			console.log('отправляю запрос '+req.body.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
-			res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses});
+			console.log(data);
+			if (data.errors)
+			{
+				res.clearCookie('usr',{path:'/'});
+				res.render('auth',{error:'Токен устарел или неверен, авторизируйтесь еще раз'});
+			}
+			else{
+				console.log('получил ответ на запрос '+req.body.text+' отправляю на сервер в ответ');
+				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses});
+			}
     })
 
 			
@@ -85,7 +95,7 @@ app.post('/auth', function(req,res) {
 					{   //проверить ошибки (если ответ пришел некорректный)
 						//console.log(data);
 						var usr=new user(req.body.user,req.body.pass,querystring.parse(data).oauth_token,querystring.parse(data).oauth_token_secret,new Date(Date.now() + 2 * 604800000));
-						console.dir(usr);
+						usr.auth=false;
 						res.cookie('usr',usr,{path: '/'});
 						res.writeHead(301,{Location: 'https://api.twitter.com/oauth/authorize?oauth_token='+querystring.parse(data).oauth_token});
 						res.end();
@@ -113,7 +123,9 @@ app.post('/pin',function(req,res){
 						var usr=new user(req.cookies.usr.userName,req.cookies.usr.userPass,querystring.parse(data).oauth_token,querystring.parse(data).oauth_token_secret,new Date(Date.now() + 2 * 604800000));
 						usr.userId=querystring.parse(data).user_id;
 						usr.screenName=querystring.parse(data).screen_name;
+						usr.auth=true;
 						res.cookie('usr',usr,{path: '/'});
+						
 						res.render('search', {
 							title: 'Введите твитт для поиска'
 	});
