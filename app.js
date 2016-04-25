@@ -43,7 +43,15 @@ app.get('/', function(req, res){
 		goust:'GOUST'
 	})
 	}
-	else
+	else if (!req.cookies.usr.screenName)
+	{
+		res.clearCookie('usr',{path:'/'})
+		res.render('search', {
+		title: 'Авторизируйтесь',
+		goust:'GOUST'
+		})
+	} 
+	else 
 	{
 		res.render('search', {
 		title: 'Введите твитт для поиска',
