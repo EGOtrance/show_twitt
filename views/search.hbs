@@ -18,8 +18,10 @@
 	</form>
 	
 {{#each twitt}}
-	<h1></h1>
-	<p><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> {{text}}</p>
+	<h1> </h1>
+	<p><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> 
+		<font size="5" color="#000000"> {{text}} </font>	</p>
+		<h3><font size="2" color="#A2EADD"> ({{created_at}}) </font></h3>
 	           
 {{/each}}
 {{/if}}

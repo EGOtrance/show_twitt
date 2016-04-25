@@ -24,8 +24,7 @@ var oauth={consumer_key:'Wx0ezY4Fp3FmuY7ZObfTXKFjA',
 			version:'1.0'
 			};
 			
-function user(userName,userPass,twittToken,twittTokenSecret,serverToken)
-{
+function user(userName,userPass,twittToken,twittTokenSecret,serverToken){
 	this.userName=userName
 	this.userPass=userPass;
 	this.twittToken=twittToken;
