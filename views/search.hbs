@@ -12,7 +12,7 @@
 	</h2>
 	<h2></h2>
 	<h1>{{title}}</h1>
-	<form action='\show', method="POST">
+	<form action='\show', method="GET">
 		<input type="text" name="text">
 		<input type="submit" value="поиск">
 	</form>
@@ -20,7 +20,8 @@
 {{#each twitt}}
 	<h1> </h1>
 	
-	<p><img src={{user.profile_image_url}}  width="60" height="60" /><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> 
+	<p><img src={{user.profile_image_url}}  width="60" height="60" />
+	<font size="5", face="Monotype Corsiva, Arial", color="#0000FF"><a href="/show?text={{user.screen_name}}">{{user.screen_name}}</a>({{user.name}}): </font> 
 		<font size="5" color="#000000"> {{text}} </font>	
 	</p>
 		<h3><font size="2" color="#A2EADD"> ({{created_at}}) </font></h3>

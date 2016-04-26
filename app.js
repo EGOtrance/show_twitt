@@ -71,7 +71,7 @@ app.get('/shutdown', function(req,res){
 		goust:'GOUST'
 	})
 })
-app.post('/show',function(req,res){
+app.get('/show',function(req,res){
 			console.log('show:',req.cookies.usr);
 			if (!req.cookies.usr)
 			{
@@ -79,7 +79,7 @@ app.post('/show',function(req,res){
 			}
 		else
 		{
-			var perm_data = req.body.text
+			var perm_data = req.query.text
 			, oauthF =
         { consumer_key: oauth.consumer_key 
         , consumer_secret: oauth.consumer_secret
@@ -90,7 +90,7 @@ app.post('/show',function(req,res){
       , qs =
         { q: perm_data,
 			count:100}
-			console.log('отправляю запрос '+req.body.text)
+			console.log('отправляю запрос '+req.query.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
 			if (e) res.render('error',{error:"Нет связи с твиттер, повторите попытку позже"});
 			else{
@@ -100,8 +100,8 @@ app.post('/show',function(req,res){
 				res.render('auth',{error:'Токен устарел или неверен, авторизируйтесь еще раз'});
 			}
 			else{
-				console.log('получил ответ на запрос '+req.body.text+' отправляю ответ клиенту');
-				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses,
+				console.log('получил ответ на запрос '+req.query.text+' отправляю ответ клиенту');
+				res.render('search',{title:'Найдено по запросу: '+req.query.text, twitt:data.statuses,
 									  user: req.cookies.usr.screenName});
 			}
 			}})
