@@ -89,7 +89,8 @@ app.get('/show',function(req,res){
       , url = 'https://api.twitter.com/1.1/search/tweets.json'
       , qs =
         { q: perm_data,
-			count:100}
+			count:100
+		}
 			console.log('отправляю запрос '+req.query.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
 			if (e) res.render('error',{error:"Нет связи с твиттер, повторите попытку позже"});
