@@ -92,7 +92,8 @@ app.post('/show',function(req,res){
 			count:100}
 			console.log('отправляю запрос '+req.body.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
-			
+			if (e) res.render('error',{error:"Нет связи с твиттер, повторите попытку позже"});
+			else{
 			if (data.errors)
 			{
 				res.clearCookie('usr',{path:'/'});
@@ -100,11 +101,10 @@ app.post('/show',function(req,res){
 			}
 			else{
 				console.log('получил ответ на запрос '+req.body.text+' отправляю ответ клиенту');
-				console.log(data.statuses);
 				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses,
 									  user: req.cookies.usr.screenName});
 			}
-			})
+			}})
 		
 			
 		}
@@ -115,6 +115,9 @@ app.post('/auth', function(req,res) {
     auth('/oauth/request_token','POST',oauth,{'oauth_callback':'oob'}, function(options){
 			var request = http.request(options, function(response) {
 			var data='';
+			response.on('error',function(){
+				res.render('error',{error:"Ошибка приема данных, повторите попытку позже"});
+			})
 			response.on("data", function(chunk) {
 					data+=chunk;
 					});
@@ -130,6 +133,9 @@ app.post('/auth', function(req,res) {
 						
 					})
 			});
+			request.on('error',function (){
+				res.render('error',{error:"Нет связи с твиттер, повторите попытку позже"});
+				});
 			request.end();
 		
 	})
@@ -141,6 +147,9 @@ app.post('/pin',function(req,res){
 	 auth('/oauth/access_token','POST',oauth,{'oauth_token':req.cookies.usr.twittToken,'oauth_token_secret':req.cookies.usr.twittTokenSecret,'oauth_verifier':req.body.pin}, function(options){
 			var request = http.request(options, function(response) {
 			var data='';
+			response.on('error',function(){
+				res.render('error',{error:"Ошибка приема данных, повторите попытку позже"});
+			})
 			response.on("data", function(chunk) {
 					data+=chunk;
 					});
@@ -167,7 +176,11 @@ app.post('/pin',function(req,res){
 						
 					})
 			});
+			request.on('error',function (){
+				res.render('error',{error:"Нет связи с твиттер, повторите попытку позже"});
+				});
 			request.end();
+			
 		
 	})
 })
