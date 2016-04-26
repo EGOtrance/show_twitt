@@ -19,8 +19,10 @@
 	
 {{#each twitt}}
 	<h1> </h1>
-	<p><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> 
-		<font size="5" color="#000000"> {{text}} </font>	</p>
+	
+	<p><img src={{user.profile_image_url}}  width="60" height="60" /><font size="5", face="Monotype Corsiva, Arial", color="#0000FF">{{user.screen_name}}({{user.name}}): </font> 
+		<font size="5" color="#000000"> {{text}} </font>	
+	</p>
 		<h3><font size="2" color="#A2EADD"> ({{created_at}}) </font></h3>
 	           
 {{/each}}

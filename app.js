@@ -92,18 +92,20 @@ app.post('/show',function(req,res){
 			count:100}
 			console.log('отправляю запрос '+req.body.text)
 		request.get({url:url, oauth:oauthF, qs:qs, json:true}, function (e, r, data) {
+			
 			if (data.errors)
 			{
 				res.clearCookie('usr',{path:'/'});
 				res.render('auth',{error:'Токен устарел или неверен, авторизируйтесь еще раз'});
 			}
 			else{
-				console.log('получил ответ на запрос '+req.body.text+' отправляю на сервер в ответ');
+				console.log('получил ответ на запрос '+req.body.text+' отправляю ответ клиенту');
+				console.log(data.statuses);
 				res.render('search',{title:'Найдено по запросу: '+req.body.text, twitt:data.statuses,
 									  user: req.cookies.usr.screenName});
 			}
-    })
-
+			})
+		
 			
 		}
 });
